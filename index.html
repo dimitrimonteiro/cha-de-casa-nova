@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chá de Casa Nova · Dimitri &amp; Gabrielly</title>
+<meta name="theme-color" content="#F1EEE1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root{
+  --creme:#F1EEE1;
+  --creme2:#E7E3D0;
+  --folha:#DCE0CE;
+  --linha:#A9AF99;
+  --salvia:#6F7D6A;
+  --verde:#2F3A2E;
+  --erro:#8A3B2E;
+  --display:"Gloock","Times New Roman",serif;
+  --script:"Pinyon Script","Snell Roundhand",cursive;
+  --texto:"Newsreader",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--creme);color:var(--verde);font-family:var(--texto);font-size:1.0625rem;line-height:1.6;min-height:100vh}
+button,input{font:inherit;color:inherit}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--verde);outline-offset:3px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+
+/* ---------- moldura do convite ---------- */
+.frame{position:relative;border:1.5px solid var(--salvia);border-radius:40px;overflow:hidden;background:var(--creme)}
+.frame > .conteudo{position:relative;z-index:1}
+.decor{position:absolute;pointer-events:none;z-index:0}
+.decor svg{display:block;width:100%;height:auto}
+.decor.a{top:-80px;left:-90px;width:290px}
+.decor.b{top:140px;left:-85px;width:160px;transform:rotate(25deg)}
+.decor.c{bottom:-80px;right:-90px;width:290px;transform:rotate(160deg)}
+.decor.d{bottom:130px;right:-85px;width:160px;transform:rotate(200deg)}
+@media (max-width:640px){
+  .frame{border-radius:28px}
+  .decor.a{top:-60px;left:-70px;width:200px}
+  .decor.b{top:90px;left:-70px;width:110px}
+  .decor.c{bottom:-60px;right:-70px;width:200px}
+  .decor.d{bottom:90px;right:-70px;width:110px}
+}
+
+/* ---------- tipografia ---------- */
+.script{font-family:var(--script);font-weight:400;line-height:1.1}
+.nomes{font-family:var(--display);font-weight:400;line-height:.95;font-size:clamp(3.1rem,13vw,6.6rem);letter-spacing:-.01em}
+.titulo{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,6vw,2.7rem);line-height:1.1}
+.convite{text-transform:uppercase;letter-spacing:.06em;font-size:clamp(.95rem,2.6vw,1.2rem);line-height:1.5;max-width:22em;margin-inline:auto}
+
+.pote{width:92px;height:auto;display:block;margin-inline:auto}
+.pote path,.pote circle{fill:none;stroke:var(--salvia);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.pote.anima path,.pote.anima circle{stroke-dasharray:1;stroke-dashoffset:1;animation:desenhar 1.8s .15s ease-out forwards}
+@keyframes desenhar{to{stroke-dashoffset:0}}
+
+/* ---------- tela de entrada ---------- */
+#entrada{min-height:100vh;min-height:100svh;padding:14px;display:flex}
+#entrada .frame{flex:1;display:flex;align-items:center;justify-content:center}
+#entrada .conteudo{width:100%;max-width:560px;padding:3.5rem 1.5rem;text-align:center}
+#entrada .script{font-size:clamp(2.1rem,7vw,3.2rem);margin-top:1.4rem}
+#entrada .convite{margin:1.6rem auto 2.2rem}
+.form-nome{display:flex;flex-direction:column;gap:.7rem;max-width:380px;margin-inline:auto;text-align:left}
+.form-nome label{font-size:1.1rem}
+.form-nome input{width:100%;padding:.85rem 1.1rem;border-radius:999px;border:1.3px solid var(--salvia);background:#F8F6EC;font-size:1.1rem}
+.form-nome input::placeholder{color:#8f9887}
+.form-nome small{color:var(--salvia);font-size:.95rem;line-height:1.4}
+.erro-form{color:var(--erro);font-size:.98rem;min-height:1.3em}
+
+/* ---------- botões ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--verde);color:var(--creme);border:1.3px solid var(--verde);border-radius:999px;padding:.72rem 1.4rem;cursor:pointer;font-weight:500;transition:background .2s,color .2s}
+.btn:hover{background:#3f4d3e}
+.btn.sec{background:transparent;color:var(--verde)}
+.btn.sec:hover{background:var(--folha)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.cheio{width:100%}
+
+/* ---------- topo e menu ---------- */
+.topo{position:sticky;top:0;z-index:30;background:rgba(241,238,225,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--linha);padding-top:env(safe-area-inset-top,0px)}
+.topo-in{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 1.25rem}
+.marca{font-family:var(--script);font-size:1.9rem;line-height:1;white-space:nowrap;text-decoration:none;color:var(--verde)}
+.menu{display:flex;align-items:center;gap:.4rem}
+.menu a,.menu button.link{color:var(--verde);text-decoration:none;padding:.45rem .9rem;border-radius:999px;background:none;border:0;cursor:pointer;font-size:1rem}
+.menu a:hover,.menu button.link:hover{background:var(--folha)}
+.quem{border:1px solid var(--linha);border-radius:999px;padding:.3rem .9rem;font-size:.95rem;color:var(--salvia);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-left:.4rem}
+.hamb{display:none;background:none;border:1.2px solid var(--salvia);border-radius:999px;width:44px;height:44px;cursor:pointer;align-items:center;justify-content:center}
+.hamb span,.hamb span::before,.hamb span::after{display:block;width:18px;height:1.6px;background:var(--verde);position:relative;transition:transform .2s,background .2s}
+.hamb span::before,.hamb span::after{content:"";position:absolute;left:0}
+.hamb span::before{top:-6px}.hamb span::after{top:6px}
+.hamb[aria-expanded="true"] span{background:transparent}
+.hamb[aria-expanded="true"] span::before{transform:translateY(6px) rotate(45deg)}
+.hamb[aria-expanded="true"] span::after{transform:translateY(-6px) rotate(-45deg)}
+@media (max-width:760px){
+  .hamb{display:inline-flex}
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--creme);border-bottom:1px solid var(--linha);padding:.5rem 1.25rem 1rem}
+  .menu.aberto{display:flex}
+  .menu a,.menu button.link{padding:.9rem .4rem;border-radius:0;text-align:left;border-bottom:1px solid var(--folha);font-size:1.1rem}
+  .quem{margin:.7rem 0 0;max-width:none;text-align:center}
+}
+
+/* ---------- seções ---------- */
+main{max-width:1120px;margin:0 auto;padding:1.25rem 1.25rem 3rem}
+section{scroll-margin-top:84px}
+.hero .conteudo{padding:3.2rem 1.5rem 2.6rem;text-align:center}
+.hero .script{font-size:clamp(2.4rem,8vw,3.8rem);margin-top:1.2rem}
+.hero p.lead{max-width:34em;margin:1rem auto 0;font-size:1.12rem}
+
+.data{display:grid;grid-template-columns:1fr 1.05fr 1fr;align-items:center;max-width:640px;margin:2.2rem auto 0;border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)}
+.data > div{padding:1.1rem .8rem}
+.data > div + div{border-left:1px solid var(--linha)}
+.data .dia{text-align:right;font-size:clamp(1.05rem,3.6vw,1.45rem);line-height:1.25}
+.data .num{font-family:var(--display);font-size:clamp(3.4rem,13vw,5.4rem);line-height:1}
+.data .mes{text-align:left;font-family:var(--display);font-size:clamp(1.3rem,4.8vw,2rem);line-height:1.1}
+.local{margin-top:1.5rem;font-size:1.12rem}
+
+.secao-topo{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:.6rem 2rem;margin:3.2rem 0 1.1rem}
+.secao-topo p{color:var(--salvia)}
+
+.filtros{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-bottom:1.6rem}
+.chips{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.3rem;scrollbar-width:none;flex:1 1 100%}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1.2px solid var(--linha);background:transparent;border-radius:999px;padding:.4rem 1rem;cursor:pointer;font-size:1rem;white-space:nowrap}
+.chip:hover{background:var(--folha)}
+.chip[aria-pressed="true"]{background:var(--verde);color:var(--creme);border-color:var(--verde)}
+.so-disp{display:inline-flex;align-items:center;gap:.55rem;cursor:pointer;font-size:1rem;user-select:none}
+.so-disp input{accent-color:var(--verde);width:18px;height:18px}
+
+.aviso{border:1.2px solid var(--salvia);background:var(--folha);border-radius:18px;padding:.9rem 1.2rem;margin-bottom:1.4rem;display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;justify-content:space-between}
+.aviso.erro{border-color:var(--erro);background:#EBD9D2}
+
+.grupo{margin-bottom:2.6rem}
+.grupo h3{font-family:var(--display);font-weight:400;font-size:1.65rem;line-height:1.1;padding-bottom:.6rem;margin-bottom:1.1rem;border-bottom:1px solid var(--linha);display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.grupo h3 small{font-family:var(--texto);font-size:.95rem;color:var(--salvia)}
+.grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.2rem}
+@media (max-width:520px){.grade{grid-template-columns:repeat(2,1fr);gap:.85rem}}
+
+.card{border:1.2px solid var(--linha);border-radius:22px;overflow:hidden;background:#F7F5EA;display:flex;flex-direction:column}
+.card.meu{border-color:var(--verde);border-width:2px}
+.foto{position:relative;aspect-ratio:1/1;background:var(--creme2);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.foto .pote{width:42%;opacity:.55}
+.foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:filter .3s,opacity .3s}
+.card.tomado .foto img{filter:grayscale(1);opacity:.45}
+.selo{position:absolute;left:10px;top:10px;background:var(--verde);color:var(--creme);border-radius:999px;padding:.2rem .8rem;font-size:.9rem;z-index:2}
+.selo.claro{background:var(--creme);color:var(--verde);border:1px solid var(--salvia)}
+.info{padding:.85rem .95rem 1rem;display:flex;flex-direction:column;gap:.7rem;flex:1;justify-content:space-between}
+.info h4{font-family:var(--display);font-weight:400;font-size:1.15rem;line-height:1.2}
+.info .btn{padding:.55rem 1rem;font-size:.98rem;width:100%}
+.card.tomado h4{color:var(--salvia)}
+
+.esqueleto{height:300px;border-radius:22px;background:linear-gradient(90deg,var(--creme2),#F1EEE1,var(--creme2));background-size:200% 100%;animation:brilho 1.4s infinite linear}
+@keyframes brilho{to{background-position:-200% 0}}
+.vazio{text-align:center;padding:2.5rem 1rem;color:var(--salvia)}
+
+/* meu presente */
+.meu-box{display:grid;grid-template-columns:minmax(0,260px) 1fr;gap:1.6rem;align-items:center;border:1.5px solid var(--salvia);border-radius:32px;padding:1.4rem;background:#F7F5EA}
+.meu-box .foto{border-radius:22px}
+.meu-box h3{font-family:var(--display);font-weight:400;font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.1;margin:.2rem 0 .6rem}
+.meu-box .acoes{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.1rem}
+.meu-vazio{text-align:center;grid-template-columns:1fr;padding:2.2rem 1.4rem}
+@media (max-width:640px){.meu-box{grid-template-columns:1fr;text-align:center}.meu-box .foto{max-width:260px;margin-inline:auto;width:100%}.meu-box .acoes{justify-content:center}}
+
+footer{text-align:center;padding:1rem 1rem 3rem;color:var(--salvia)}
+footer .script{font-size:2rem;color:var(--verde)}
+
+/* ---------- diálogo e aviso rápido ---------- */
+dialog{margin:auto;border:1.5px solid var(--salvia);border-radius:28px;background:var(--creme);color:var(--verde);width:min(420px,92vw);padding:1.8rem 1.6rem 1.5rem;text-align:center}
+dialog::backdrop{background:rgba(47,58,46,.5)}
+dialog h2{font-family:var(--display);font-weight:400;font-size:1.6rem;line-height:1.15;margin-bottom:.7rem}
+dialog p{margin-bottom:1.3rem}
+dialog .linha-btn{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;pointer-events:none;background:var(--verde);color:var(--creme);padding:.8rem 1.3rem;border-radius:999px;max-width:92vw;text-align:center;z-index:60;transition:transform .3s,opacity .3s}
+.toast.on{transform:translate(-50%,0);opacity:1}
+.toast.erro{background:var(--erro)}
+</style>
+</head>
+<body>
+
+<!-- padrão usado no miolo das margaridas -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <pattern id="hachura" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="4" height="4" fill="#97A38F"/><line x1="0" y1="0" x2="0" y2="4" stroke="#4F5C4D" stroke-width="1.4"/>
+  </pattern>
+</defs></svg>
+
+<!-- ============ TELA 1: pedir o nome ============ -->
+<div id="entrada" hidden>
+  <div class="frame" data-decor>
+    <div class="conteudo">
+      <div data-pote="anima"></div>
+      <p class="script">Chá de Casa Nova</p>
+      <h1 class="nomes">Dimitri &amp;<br>Gabrielly</h1>
+      <p class="convite">Queremos comemorar com você essa nova etapa!</p>
+      <form class="form-nome" id="form-nome" autocomplete="off" novalidate>
+        <label for="campo-nome">Como você se chama?</label>
+        <input id="campo-nome" type="text" maxlength="60" placeholder="Nome e sobrenome" autocapitalize="words" enterkeyhint="go">
+        <small>Use nome e sobrenome para não confundirmos você com outro convidado.</small>
+        <div class="erro-form" id="erro-nome" role="alert"></div>
+        <button class="btn cheio" type="submit">Ver lista de presentes</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TELA 2: site ============ -->
+<div id="app" hidden>
+  <header class="topo">
+    <div class="topo-in">
+      <a class="marca" href="#festa">Dimitri &amp; Gabrielly</a>
+      <button class="hamb" id="hamb" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span></button>
+      <nav class="menu" id="menu" aria-label="Principal">
+        <a href="#festa">A festa</a>
+        <a href="#presentes">Presentes</a>
+        <a href="#meu-presente">Meu presente</a>
+        <button class="link" id="trocar-nome" type="button">Não sou eu</button>
+        <span class="quem" id="quem"></span>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="festa">
+      <div class="frame hero" data-decor>
+        <div class="conteudo">
+          <div data-pote></div>
+          <p class="script">Olá, <span id="ola"></span>!</p>
+          <p class="lead">Escolha um presente da lista para nos ajudar a montar a nossa casa. Cada convidado escolhe um só, e ele fica reservado na hora para quem entrar depois.</p>
+          <div class="data" aria-label="Sábado, 7 de novembro, às 14:30">
+            <div class="dia">sábado<br>às 14:30h</div>
+            <div class="num">07</div>
+            <div class="mes">Novembro</div>
+          </div>
+          <p class="local">Residencial Bortolusci, Vicente Pires</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="presentes">
+      <div class="secao-topo">
+        <h2 class="titulo">Lista de presentes</h2>
+        <p id="contagem" aria-live="polite"></p>
+      </div>
+      <div id="aviso-area"></div>
+      <div class="filtros">
+        <div class="chips" id="chips" role="group" aria-label="Categorias"></div>
+        <label class="so-disp"><input type="checkbox" id="so-disp"> Mostrar só os disponíveis</label>
+      </div>
+      <div id="lista"></div>
+    </section>
+
+    <section id="meu-presente">
+      <div class="secao-topo">
+        <h2 class="titulo">Meu presente</h2>
+      </div>
+      <div id="meu"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="script">Obrigado por fazer parte desse momento</p>
+  </footer>
+</div>
+
+<dialog id="dlg">
+  <h2 id="dlg-titulo"></h2>
+  <p id="dlg-texto"></p>
+  <div class="linha-btn">
+    <button class="btn sec" id="dlg-nao" type="button">Voltar</button>
+    <button class="btn" id="dlg-sim" type="button">Confirmar</button>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+   CONFIGURAÇÃO
+   ===================================================================== */
+const API = 'https://sheetdb.io/api/v1/fwnajnjs49snb';   // planilha: colunas "Nome" e "Presente"
+const PASTA_IMAGENS = 'imagens/';                         // pasta ao lado do index.html
+const EXTENSOES = ['jpg', 'png', 'jpeg', 'webp', 'JPG', 'PNG', 'JPEG', 'WEBP'];  // o site tenta cada uma até achar (inclui MAIÚSCULAS)
+const ATUALIZAR_A_CADA = 30000;                           // ms: recarrega a planilha sozinho
+
+/* =====================================================================
+   LISTA DE PRESENTES
+   [ 'Nome que aparece e que é salvo na planilha', 'nome-do-arquivo-da-imagem' ]
+   Ex.: 'liquidificador' -> imagens/liquidificador.jpg (ou .png / .jpeg / .webp)
+   Se a imagem não existir, aparece um desenho de panela no lugar.
+   Opcionais, como 3º valor do item:
+     { qtd: 2 }     -> 2 pessoas podem escolher esse presente (padrão é 1)
+     { ext: 'png' } -> usa essa extensão primeiro (útil se houver mais de um arquivo com o mesmo nome)
+   ===================================================================== */
+const CATEGORIAS = [
+  { nome: 'Eletrodomésticos', itens: [
+    ['Sanduicheira', 'sanduicheira'],
+    ['Liquidificador', 'liquidificador'],
+    ['Batedeira', 'batedeira'],
+    ['Chaleira elétrica', 'chaleira-eletrica'],
+    ['Cafeteira', 'cafeteira'],
+    ['Ferro de passar roupa', 'ferro-de-passar'],
+    ['Mixer', 'mixer'],
+    ['Panela elétrica', 'panela-eletrica']
+  ]},
+  { nome: 'Cozinha', itens: [
+    ['Jogo de facas', 'jogo-de-facas'],
+    ['Tábua de corte', 'tabua-de-corte'],
+    ['Frigideira antiaderente', 'frigideira'],
+    ['Panela de pressão', 'panela-de-pressao'],
+    ['Escorredor de macarrão', 'escorredor-de-macarrao'],
+    ['Utensílios de silicone', 'utensilios-de-silicone'],
+    ['Potes herméticos', 'potes-hermeticos'],
+    ['Porta-temperos', 'porta-temperos'],
+    ['Kit de assadeiras', 'kit-de-assadeiras'],
+    ['Pipoqueira de fogão', 'pipoqueira'],
+    ['Forma de bolo', 'forma-de-bolo'],
+    ['Kit de potes de vidro', 'kit-de-potes-de-vidro'],
+    ['Fatiador', 'fatiador'],
+    ['Kit abridor de vinho', 'kit-abridor-de-vinho'],
+    ['Kit borrifador de óleo', 'kit-borrifador-de-oleo']
+  ]},
+  { nome: 'Mesa posta', itens: [
+    ['Jogo de pratos', 'jogo-de-pratos'],
+    ['Jogo de copos', 'jogo-de-copos'],
+    ['Taças de vidro', 'tacas'],
+    ['Jogo de talheres', 'jogo-de-talheres'],
+    ['Jarra de vidro', 'jarra-de-vidro'],
+    ['Saladeira', 'saladeira'],
+    ['Travessas de vidro', 'travessas-de-vidro'],
+    ['Kit de xícaras', 'kit-de-xicaras'],
+    ['Kit de canecas', 'kit-de-canecas'],
+    ['Kit de bowls', 'kit-de-bowls', { ext: 'png' }]
+  ]},
+  { nome: 'Banheiro', itens: [
+    ['Toalhas de banho', 'toalhas-de-banho'],
+    ['Toalhas de rosto', 'toalhas-de-rosto'],
+    ['Tapete de banheiro', 'tapete-de-banheiro', { qtd: 2 }],
+    ['Kit de banheiro', 'kit-banheiro', { qtd: 2 }]
+  ]},
+  { nome: 'Quarto e sala', itens: [
+    ['Jogo de lençol', 'jogo-de-lencol'],
+    ['Travesseiro', 'travesseiro'],
+    ['Cobertor', 'cobertor'],
+    ['Manta para sofá', 'manta-para-sofa']
+  ]},
+  { nome: 'Limpeza e organização', itens: [
+    ['Tábua de passar roupa', 'tabua-de-passar'],
+    ['Mop de limpeza', 'mop-de-limpeza'],
+    ['Kit de ferramentas domésticas', 'kit-de-ferramentas']
+  ]}
+];
+
+/* =====================================================================
+   ESTADO
+   ===================================================================== */
+const CHAVE_NOME = 'chaCasaNova:nome';
+let usuario = '';
+let linhas = [];          // [{Nome, Presente}] vindas da planilha
+let carregou = false;
+let falhou = false;
+let ocupado = false;
+let filtro = 'Todos';
+let soDisponiveis = false;
+let assinatura = '';
+
+const $ = (id) => document.getElementById(id);
+const norm = (s) => String(s || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ');
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const montar = (i, cat) => ({ nome: i[0], img: i[1], cat, ...(i[2] || {}) });
+const todosPresentes = CATEGORIAS.flatMap((c) => c.itens.map((i) => montar(i, c.nome)));
+
+/* =====================================================================
+   DESENHOS (margaridas e panela do convite)
+   ===================================================================== */
+function margarida() {
+  let p = '';
+  const n = 16;
+  for (let i = 0; i < n; i++) p += `<ellipse cx="100" cy="58" rx="10" ry="38" transform="rotate(${i * 360 / n} 100 100)"/>`;
+  return `<svg viewBox="0 0 200 200" aria-hidden="true"><g fill="#DCE0CE" stroke="#6F7D6A" stroke-width="1.2">${p}</g><circle cx="100" cy="100" r="26" fill="url(#hachura)" stroke="#6F7D6A" stroke-width="1.4"/></svg>`;
+}
+function pote(extra) {
+  return `<svg class="pote ${extra || ''}" viewBox="0 0 120 90" aria-hidden="true">
+    <circle cx="60" cy="12" r="6" pathLength="1"/>
+    <path pathLength="1" d="M30 40 Q30 22 60 22 Q90 22 90 40"/>
+    <path pathLength="1" d="M24 40 H96"/>
+    <path pathLength="1" d="M32 40 V62 Q32 76 46 76 H74 Q88 76 88 62 V40"/>
+    <path pathLength="1" d="M32 49 H21 Q16 49 16 54 Q16 59 21 59 H32"/>
+    <path pathLength="1" d="M88 49 H99 Q104 49 104 54 Q104 59 99 59 H88"/>
+  </svg>`;
+}
+document.querySelectorAll('[data-decor]').forEach((el) => {
+  el.insertAdjacentHTML('afterbegin', ['a', 'b', 'c', 'd'].map((c) => `<div class="decor ${c}">${margarida()}</div>`).join(''));
+});
+document.querySelectorAll('[data-pote]').forEach((el) => { el.innerHTML = pote(el.dataset.pote); });
+
+/* =====================================================================
+   PLANILHA (SheetDB)
+   ===================================================================== */
+async function carregarLinhas() {
+  try {
+    const r = await fetch(API, { cache: 'no-store', headers: { Accept: 'application/json' } });
+    if (!r.ok) throw new Error('http ' + r.status);
+    const dados = await r.json();
+    if (!Array.isArray(dados)) throw new Error('formato');
+    linhas = dados
+      .map((d) => ({ Nome: d.Nome ?? d.nome ?? '', Presente: d.Presente ?? d.presente ?? '' }))
+      .filter((d) => d.Presente);
+    carregou = true;
+    falhou = false;
+  } catch (e) {
+    falhou = true;
+  }
+  return !falhou;
+}
+
+const escolhasDe = (nome) => linhas.filter((x) => norm(x.Presente) === norm(nome));
+const quantidade = (nome) => { const p = achar(nome); return (p && p.qtd) || 1; };
+const disponivel = (nome) => escolhasDe(nome).length < quantidade(nome);
+const ehMeuPresente = (nome) => escolhasDe(nome).some((x) => norm(x.Nome) === norm(usuario));
+const meuPresente = () => {
+  const l = linhas.find((x) => norm(x.Nome) === norm(usuario));
+  return l ? l.Presente : null;
+};
+const achar = (nome) => todosPresentes.find((p) => norm(p.nome) === norm(nome));
+
+/* =====================================================================
+   RENDERIZAÇÃO
+   ===================================================================== */
+function imgTag(p) {
+  const i0 = Math.max(0, EXTENSOES.indexOf(String(p.ext || '').toLowerCase()));
+  return `<img src="${PASTA_IMAGENS}${p.img}.${EXTENSOES[i0]}" data-base="${p.img}" data-i="${i0}" alt="${esc(p.nome)}" loading="lazy">`;
+}
+
+function cartao(p) {
+  const meu = meuPresente();
+  const ehMeu = ehMeuPresente(p.nome);
+  const tomado = !disponivel(p.nome) && !ehMeu;
+  const total = quantidade(p.nome);
+  const usadas = escolhasDe(p.nome).length;
+  let selo = '';
+  if (ehMeu) selo = '<span class="selo">Seu presente</span>';
+  else if (tomado) selo = '<span class="selo claro">Já escolhido</span>';
+  else if (total > 1) selo = `<span class="selo claro">${usadas === 0 ? (['', 'Um', 'Dois', 'Três', 'Quatro', 'Cinco'][total] || total) + ' disponíveis' : 'Resta ' + (total - usadas)}</span>`;
+
+  let botao;
+  if (ehMeu) botao = '<button class="btn sec" disabled>Seu presente</button>';
+  else if (tomado) botao = '<button class="btn sec" disabled>Indisponível</button>';
+  else if (meu) botao = '<button class="btn sec" disabled>Escolher</button>';
+  else botao = `<button class="btn" data-escolher="${esc(p.nome)}" ${(!carregou || falhou) ? 'disabled' : ''}>Quero dar este</button>`;
+
+  return `<article class="card ${tomado ? 'tomado' : ''} ${ehMeu ? 'meu' : ''}">
+    <div class="foto">${pote()}${imgTag(p)}${selo}</div>
+    <div class="info"><h4>${esc(p.nome)}</h4>${botao}</div>
+  </article>`;
+}
+
+function renderChips() {
+  const nomes = ['Todos', ...CATEGORIAS.map((c) => c.nome)];
+  $('chips').innerHTML = nomes.map((n) => `<button type="button" class="chip" data-cat="${esc(n)}" aria-pressed="${n === filtro}">${esc(n)}</button>`).join('');
+}
+
+function renderLista() {
+  const area = $('lista');
+  if (!carregou && !falhou) {
+    area.innerHTML = '<div class="grade">' + '<div class="esqueleto"></div>'.repeat(6) + '</div>';
+    return;
+  }
+  const grupos = CATEGORIAS
+    .filter((c) => filtro === 'Todos' || c.nome === filtro)
+    .map((c) => {
+      let itens = c.itens.map((i) => montar(i, c.nome));
+      const livres = itens.filter((p) => disponivel(p.nome)).length;
+      if (soDisponiveis) itens = itens.filter((p) => disponivel(p.nome) || ehMeuPresente(p.nome));
+      return { c, itens, livres };
+    })
+    .filter((g) => g.itens.length);
+
+  area.innerHTML = grupos.length
+    ? grupos.map((g) => `<div class="grupo"><h3>${esc(g.c.nome)}<small>${g.livres} de ${g.c.itens.length} disponíveis</small></h3><div class="grade">${g.itens.map(cartao).join('')}</div></div>`).join('')
+    : '<p class="vazio">Nenhum presente disponível nessa categoria. Que tal olhar as outras?</p>';
+}
+
+function renderAviso() {
+  const a = $('aviso-area');
+  const meu = meuPresente();
+  if (falhou) {
+    a.innerHTML = '<div class="aviso erro"><span>Não consegui carregar a lista agora. Verifique sua internet e tente de novo.</span><button class="btn sec" id="tentar" type="button">Tentar de novo</button></div>';
+  } else if (meu) {
+    a.innerHTML = `<div class="aviso"><span>Você já escolheu: <strong>${esc(meu)}</strong>. Para trocar, vá em Meu presente.</span><a class="btn sec" href="#meu-presente">Ver meu presente</a></div>`;
+  } else {
+    a.innerHTML = '';
+  }
+}
+
+function renderContagem() {
+  if (!carregou) { $('contagem').textContent = ''; return; }
+  const livres = todosPresentes.filter((p) => disponivel(p.nome)).length;
+  $('contagem').textContent = `${livres} de ${todosPresentes.length} presentes ainda disponíveis`;
+}
+
+function renderMeu() {
+  const nome = meuPresente();
+  const box = $('meu');
+  if (!carregou) { box.innerHTML = falhou ? '<div class="meu-box meu-vazio"><p>Carregue a lista para ver o seu presente.</p></div>' : ''; return; }
+  if (!nome) {
+    box.innerHTML = '<div class="meu-box meu-vazio"><div><h3>Você ainda não escolheu</h3><p>Escolha um presente na lista e ele fica reservado para você.</p><div class="acoes" style="justify-content:center"><a class="btn" href="#presentes">Ver a lista</a></div></div></div>';
+    return;
+  }
+  const p = achar(nome) || { nome, img: '', cat: '' };
+  box.innerHTML = `<div class="meu-box">
+    <div class="foto">${pote()}${p.img ? imgTag(p) : ''}</div>
+    <div>
+      <p>Seu presente para o chá de casa nova</p>
+      <h3>${esc(p.nome)}</h3>
+      <p>Obrigado, ${esc(usuario)}! Seu nome já está na lista. Se mudar de ideia, dá para trocar por outro presente que esteja disponível.</p>
+      <div class="acoes"><button class="btn sec" id="btn-trocar-presente" type="button">Trocar de presente</button></div>
+    </div>
+  </div>`;
+}
+
+function render(forcar) {
+  const sig = JSON.stringify([linhas.map((l) => [norm(l.Nome), norm(l.Presente)]), carregou, falhou, filtro, soDisponiveis, usuario]);
+  if (!forcar && sig === assinatura) return;
+  assinatura = sig;
+  renderAviso();
+  renderContagem();
+  renderLista();
+  renderMeu();
+}
+
+/* =====================================================================
+   INTERAÇÕES
+   ===================================================================== */
+let toastT;
+function aviso(msg, erro) {
+  const t = $('toast');
+  t.textContent = msg;
+  t.classList.toggle('erro', !!erro);
+  t.classList.add('on');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => t.classList.remove('on'), 4200);
+}
+
+function confirmar(titulo, texto, rotuloSim) {
+  return new Promise((resolve) => {
+    const d = $('dlg');
+    $('dlg-titulo').textContent = titulo;
+    $('dlg-texto').textContent = texto;
+    $('dlg-sim').textContent = rotuloSim || 'Confirmar';
+    const fim = (v) => { d.removeEventListener('close', aoFechar); d.close(); resolve(v); };
+    const aoFechar = () => resolve(false);
+    $('dlg-sim').onclick = () => fim(true);
+    $('dlg-nao').onclick = () => fim(false);
+    d.addEventListener('close', aoFechar, { once: true });
+    d.showModal();
+  });
+}
+
+async function escolher(nome) {
+  if (ocupado) return;
+  const ok = await confirmar(`Escolher "${nome}"?`, 'Cada convidado escolhe um presente só. Depois de confirmar, ele fica reservado para você.', 'Sim, quero dar este');
+  if (!ok) return;
+  ocupado = true;
+  try {
+    if (!(await carregarLinhas())) throw new Error('offline');
+    if (meuPresente()) { aviso('Você já tem um presente escolhido.', true); render(true); return; }
+    if (!disponivel(nome)) { aviso('Esse presente acabou de ser escolhido por outra pessoa. Escolha outro, por favor.', true); render(true); return; }
+    const r = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ data: [{ Nome: usuario, Presente: nome }] })
+    });
+    if (!r.ok) throw new Error('post');
+    linhas.push({ Nome: usuario, Presente: nome });
+    render(true);
+    aviso('Presente reservado! Obrigado, ' + usuario.split(' ')[0] + '.');
+    document.getElementById('meu-presente').scrollIntoView({ behavior: 'smooth' });
+  } catch (e) {
+    aviso('Não consegui salvar a sua escolha. Tente de novo.', true);
+    render(true);
+  } finally {
+    ocupado = false;
+  }
+}
+
+async function trocarPresente() {
+  if (ocupado) return;
+  const atual = meuPresente();
+  if (!atual) return;
+  const ok = await confirmar('Trocar de presente?', `"${atual}" volta para a lista e você poderá escolher outro.`, 'Sim, trocar');
+  if (!ok) return;
+  ocupado = true;
+  try {
+    const minha = linhas.find((l) => norm(l.Nome) === norm(usuario));
+    const r = await fetch(`${API}/Nome/${encodeURIComponent(minha.Nome)}`, { method: 'DELETE', headers: { Accept: 'application/json' } });
+    if (!r.ok) throw new Error('del');
+    linhas = linhas.filter((l) => norm(l.Nome) !== norm(usuario));
+    render(true);
+    aviso('Pronto! Escolha o novo presente na lista.');
+    document.getElementById('presentes').scrollIntoView({ behavior: 'smooth' });
+  } catch (e) {
+    aviso('Não consegui trocar agora. Tente de novo.', true);
+  } finally {
+    ocupado = false;
+  }
+}
+
+/* imagens: tenta jpg, png, jpeg, webp; se nenhuma existir, fica a panela */
+document.addEventListener('error', (e) => {
+  const img = e.target;
+  if (!(img instanceof HTMLImageElement) || !img.dataset.base) return;
+  const i = Number(img.dataset.i) + 1;
+  if (i < EXTENSOES.length) {
+    img.dataset.i = i;
+    img.src = `${PASTA_IMAGENS}${img.dataset.base}.${EXTENSOES[i]}`;
+  } else {
+    img.remove();
+  }
+}, true);
+
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('button, a');
+  if (!t) return;
+  if (t.dataset.escolher) escolher(t.dataset.escolher);
+  else if (t.dataset.cat) { filtro = t.dataset.cat; renderChips(); render(); }
+  else if (t.id === 'tentar') { carregarLinhas().then(() => render(true)); }
+  else if (t.id === 'btn-trocar-presente') trocarPresente();
+  if (t.closest('#menu') && (t.tagName === 'A')) fecharMenu();
+});
+
+$('so-disp').addEventListener('change', (e) => { soDisponiveis = e.target.checked; render(); });
+
+function fecharMenu() { $('menu').classList.remove('aberto'); $('hamb').setAttribute('aria-expanded', 'false'); $('hamb').setAttribute('aria-label', 'Abrir menu'); }
+$('hamb').addEventListener('click', () => {
+  const abrir = !$('menu').classList.contains('aberto');
+  $('menu').classList.toggle('aberto', abrir);
+  $('hamb').setAttribute('aria-expanded', String(abrir));
+  $('hamb').setAttribute('aria-label', abrir ? 'Fechar menu' : 'Abrir menu');
+});
+
+$('trocar-nome').addEventListener('click', () => {
+  try { localStorage.removeItem(CHAVE_NOME); } catch (e) {}
+  usuario = '';
+  fecharMenu();
+  mostrarEntrada();
+});
+
+/* =====================================================================
+   FLUXO PRINCIPAL
+   ===================================================================== */
+function mostrarEntrada() {
+  $('app').hidden = true;
+  $('entrada').hidden = false;
+  $('campo-nome').value = '';
+  $('erro-nome').textContent = '';
+  window.scrollTo(0, 0);
+  setTimeout(() => $('campo-nome').focus({ preventScroll: true }), 50);
+}
+
+async function entrarNoSite(nome) {
+  usuario = nome;
+  $('entrada').hidden = true;
+  $('app').hidden = false;
+  $('quem').textContent = nome;
+  $('ola').textContent = nome.split(' ')[0];
+  window.scrollTo(0, 0);
+  renderChips();
+  assinatura = '';
+  render(true);
+  await carregarLinhas();
+  render(true);
+}
+
+$('form-nome').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const nome = $('campo-nome').value.trim().replace(/\s+/g, ' ');
+  if (nome.length < 2) { $('erro-nome').textContent = 'Digite seu nome para continuar.'; return; }
+  try { localStorage.setItem(CHAVE_NOME, nome); } catch (err) {}
+  entrarNoSite(nome);
+});
+
+async function atualizar() {
+  if (!usuario || document.hidden || ocupado) return;
+  await carregarLinhas();
+  render();
+}
+setInterval(atualizar, ATUALIZAR_A_CADA);
+document.addEventListener('visibilitychange', atualizar);
+
+(function iniciar() {
+  let salvo = '';
+  try { salvo = localStorage.getItem(CHAVE_NOME) || ''; } catch (e) {}
+  if (salvo) entrarNoSite(salvo); else mostrarEntrada();
+})();
+</script>
+</body>
+</html>
